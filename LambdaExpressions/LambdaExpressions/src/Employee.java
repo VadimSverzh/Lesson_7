@@ -43,4 +43,5 @@ public class Employee
         return name + " - " + salary + " - " +
             (new SimpleDateFormat("dd.MM.yyyy")).format(workStart);
     }
+
 }
