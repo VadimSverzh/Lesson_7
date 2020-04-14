@@ -1,10 +1,9 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main
 {
@@ -23,9 +22,15 @@ public class Main
             System.out.println(employee);
         }
         System.out.println();
-        staff.stream().filter(e -> (e.getWorkStart().getYear() == 117))
+        staff.stream().filter(e -> convertToLocalDate(e.getWorkStart()).getYear() == 2017)
                       .max(Comparator.comparing(Employee::getSalary))
                       .ifPresent(System.out::println);
+    }
+
+    private static LocalDate convertToLocalDate(Date date) {
+        return date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 
     private static ArrayList<Employee> loadStaffFromFile()
